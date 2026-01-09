@@ -23,36 +23,7 @@
 
 #### 1.1 两种模型的本质区别
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Account 模型 (Ethereum)                   │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│   Account: 0xABC...                                         │
-│   ├── Balance: 10 ETH                                       │
-│   ├── Nonce: 5                                              │
-│   └── Storage: {...}                                        │
-│                                                             │
-│   转账: balance[from] -= amount; balance[to] += amount      │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────┐
-│                    UTXO 模型 (Bitcoin)                       │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│   没有"账户余额"概念！只有一堆"未花费的交易输出"              │
-│                                                             │
-│   UTXO Set:                                                 │
-│   ├── UTXO_1: (txid_a:0) → 0.5 BTC → 锁定给 addr_1          │
-│   ├── UTXO_2: (txid_b:1) → 1.2 BTC → 锁定给 addr_1          │
-│   ├── UTXO_3: (txid_c:0) → 0.3 BTC → 锁定给 addr_2          │
-│   └── ...                                                   │
-│                                                             │
-│   addr_1 的"余额" = UTXO_1 + UTXO_2 = 1.7 BTC               │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+![Account vs UTXO Model](assets/day03/account_vs_utxo_model.png)
 
 #### 1.2 后端开发者的理解
 
@@ -67,21 +38,7 @@
 
 #### 1.3 UTXO 的生命周期
 
-```
-创建 (Created)          使用 (Spent)           销毁 (Destroyed)
-     │                       │                       │
-     ▼                       ▼                       ▼
-┌─────────┐            ┌─────────┐            ┌─────────┐
-│ TX_A    │            │ TX_B    │            │ TX_C    │
-│ Output 0│───────────▶│ Input 0 │            │         │
-│ 1.0 BTC │  引用      │(TX_A:0) │───────────▶│ 新 UTXO │
-└─────────┘            └─────────┘            └─────────┘
-     │                                              │
-     │                                              │
-  UTXO 被                                      新 UTXO
-  创建并加入                                   被创建
-  UTXO Set                                          
-```
+![UTXO Lifecycle](assets/day03/utxo_lifecycle.png)
 
 **关键规则**：
 1. 每个 UTXO 只能被花费一次（防止双花）
@@ -94,51 +51,11 @@
 
 #### 2.1 交易的组成部分
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      Bitcoin Transaction                     │
-├─────────────────────────────────────────────────────────────┤
-│ Version: 1 或 2                                              │
-├─────────────────────────────────────────────────────────────┤
-│ Inputs (输入):                                               │
-│   ├── Input 0:                                              │
-│   │     ├── Previous TX Hash: 0xabc123...                   │
-│   │     ├── Output Index: 0                                 │
-│   │     ├── ScriptSig: <signature> <pubkey>                 │
-│   │     └── Sequence: 0xffffffff                            │
-│   └── Input 1: ...                                          │
-├─────────────────────────────────────────────────────────────┤
-│ Outputs (输出):                                              │
-│   ├── Output 0:                                             │
-│   │     ├── Value: 50000 satoshis                           │
-│   │     └── ScriptPubKey: OP_DUP OP_HASH160 <hash> ...      │
-│   └── Output 1: (找零)                                      │
-│         ├── Value: 49000 satoshis                           │
-│         └── ScriptPubKey: ...                               │
-├─────────────────────────────────────────────────────────────┤
-│ Locktime: 0                                                 │
-└─────────────────────────────────────────────────────────────┘
-
-手续费 = 输入总额 - 输出总额 = 1000 satoshis
-```
+![Bitcoin Transaction Structure](assets/day03/bitcoin_transaction_structure.png)
 
 #### 2.2 锁定脚本与解锁脚本
 
-```
-锁定脚本 (ScriptPubKey) - 在 Output 中，定义"谁能花"
-  │
-  │  P2PKH 示例:
-  │  OP_DUP OP_HASH160 <PubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
-  │
-  ▼
-解锁脚本 (ScriptSig) - 在 Input 中，证明"我能花"
-  │
-  │  P2PKH 示例:
-  │  <Signature> <PublicKey>
-  │
-  ▼
-验证过程: ScriptSig + ScriptPubKey → 执行 → True/False
-```
+![Locking and Unlocking Scripts](assets/day03/script_execution_flow.png)
 
 #### 2.3 常见脚本类型
 

@@ -53,14 +53,7 @@
 
 #### 2.1 不可篡改性 (Immutability)
 
-```
-Block N-1          Block N           Block N+1
-┌─────────────┐   ┌─────────────┐   ┌─────────────┐
-│ Prev Hash   │◄──│ Prev Hash   │◄──│ Prev Hash   │
-│ Hash: 0x1a2 │   │ Hash: 0x8f9 │   │ Hash: 0xc3d │
-│ Txs...      │   │ Txs...      │   │ Txs...      │
-└─────────────┘   └─────────────┘   └─────────────┘
-```
+![Blockchain Immutability](assets/day01/blockchain_immutability.png)
 
 **原理**：每个区块包含前一个区块的哈希值，形成链式结构。修改任何历史数据将导致后续所有区块哈希失效。
 
@@ -217,17 +210,7 @@ Merkle Tree 验证:
 
 **Merkle Tree 结构**：
 
-```
-                Root Hash
-                   │
-         ┌─────────┴─────────┐
-       Hash01              Hash23
-         │                   │
-    ┌────┴────┐        ┌────┴────┐
-  Hash0    Hash1     Hash2    Hash3
-    │        │         │        │
-  Tx0      Tx1       Tx2      Tx3
-```
+![Merkle Tree Structure](assets/day01/merkle_tree_structure.png)
 
 **验证 Tx2 的包含性，只需**：
 1. Tx2 本身

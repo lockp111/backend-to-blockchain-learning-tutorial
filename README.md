@@ -20,6 +20,8 @@
 | **数据库**   | MySQL/PostgreSQL + Redis        |
 | **AI 辅助**  | Cursor / Windsurf               |
 
+> 📚 **详细课程大纲请查看**: [课程大纲.md](./课程大纲.md)
+
 ---
 
 ## 🗺️ 课程概览
@@ -61,158 +63,9 @@ mindmap
 
 ---
 
-## 🔗 知识图谱
+## 📚 课程进度
 
-### 核心概念关系
-
-```mermaid
-flowchart TB
-    subgraph Cryptography["🔐 密码学基础"]
-        ECDSA["ECDSA secp256k1"]
-        SHA256["SHA-256"]
-        Keccak["Keccak-256"]
-        BIP39["BIP-39 助记词"]
-        BIP32["BIP-32/44 HD钱包"]
-    end
-
-    subgraph Bitcoin["₿ Bitcoin 技术栈"]
-        UTXO["UTXO 模型"]
-        Script["Bitcoin Script"]
-        PSBT["PSBT BIP-174"]
-        Timelock["时间锁"]
-        LN["闪电网络"]
-        HTLC["HTLC"]
-    end
-
-    subgraph Ethereum["⟠ Ethereum 技术栈"]
-        Account["Account 模型"]
-        EVM["EVM 虚拟机"]
-        Solidity["Solidity"]
-        ABI["ABI 编码"]
-        Proxy["Proxy 代理"]
-    end
-
-    subgraph Standards["📋 资产标准"]
-        ERC20["ERC-20"]
-        ERC721["ERC-721 NFT"]
-        Permit["EIP-2612 Permit"]
-        AA["ERC-4337 AA"]
-    end
-
-    subgraph DeFi["💰 DeFi 协议"]
-        Uniswap["Uniswap V3"]
-        Aave["Aave 借贷"]
-    end
-
-    ECDSA --> BIP32
-    BIP39 --> BIP32
-    BIP32 --> UTXO
-    BIP32 --> Account
-    SHA256 --> UTXO
-    Keccak --> Account
-
-    UTXO --> Script --> PSBT
-    Script --> Timelock --> HTLC --> LN
-
-    Account --> EVM --> Solidity --> ABI
-    Solidity --> Proxy
-    ABI --> ERC20 --> Permit
-    ERC20 --> Uniswap
-    AA --> Permit
-    ABI --> ERC721
-```
-
-### 学习路径依赖
-
-```mermaid
-flowchart TD
-    subgraph Phase1["🟢 Phase 1: 基础 (Week 1)"]
-        A1["区块链概念"] --> A2["密码学基础"]
-        A2 --> A3["UTXO 模型"]
-        A3 --> A4["PSBT/多签"]
-        A4 --> A5["时间锁"]
-        A5 --> A6["支付系统"]
-    end
-
-    subgraph Phase2["🔵 Phase 2: 扩展 (Week 2)"]
-        B1["闪电网络"] --> B2["以太坊基础"]
-        B2 --> B3["Foundry"]
-        B3 --> B4["Solidity"]
-    end
-
-    subgraph Phase3["🟡 Phase 3: 集成 (Week 3)"]
-        C1["ABI/Proxy"] --> C2["Abigen"]
-        C2 --> C3["E2E 测试"]
-        C3 --> C4["Indexer"]
-    end
-
-    subgraph Phase4["🟠 Phase 4: 应用 (Week 4)"]
-        D1["Merkle Tree"] --> D2["Token 标准"]
-        D2 --> D3["ERC-4337"]
-        D3 --> D4["DeFi"]
-    end
-
-    subgraph Phase5["🔴 Phase 5: 进阶 (Week 5)"]
-        E1["冷热分离"] --> E2["跨链/L2"]
-        E2 --> E3["安全审计"]
-        E3 --> E4["结业项目"]
-    end
-
-    A6 --> B1
-    A5 --> B1
-    A4 --> E1
-    B4 --> C1
-    C4 --> D1
-    D4 --> E2
-```
-
-### 技术栈分层
-
-```mermaid
-flowchart LR
-    subgraph L1["Layer 1 基础链"]
-        BTC["Bitcoin"]
-        ETH["Ethereum"]
-    end
-
-    subgraph L2["Layer 2 扩展"]
-        Lightning["闪电网络"]
-        Optimism["Optimism"]
-        Arbitrum["Arbitrum"]
-    end
-
-    subgraph Backend["Go 后端服务"]
-        GoETH["go-ethereum"]
-        btcsuite["btcsuite"]
-        LNDClient["LND gRPC"]
-    end
-
-    subgraph Contract["智能合约"]
-        Foundry["Foundry"]
-        OZ["OpenZeppelin"]
-    end
-
-    BTC --> btcsuite
-    BTC --> Lightning --> LNDClient
-    ETH --> GoETH --> Foundry
-    ETH --> Optimism
-    ETH --> Arbitrum
-    Foundry --> OZ
-```
-
----
-
-## 📚 课程内容
-
-| Week       | 主题               | 核心技术                         | Day   |
-| ---------- | ------------------ | -------------------------------- | ----- |
-| **Week 1** | Bitcoin 核心       | UTXO, PSBT, 时间锁, 支付系统     | 1-7   |
-| **Week 2** | 闪电网络 + EVM     | LND, Ethereum, Foundry, Solidity | 8-14  |
-| **Week 3** | 合约进阶与 Go 集成 | ABI, Abigen, E2E 测试, Indexer   | 15-21 |
-| **Week 4** | 资产标准与 DeFi    | Merkle, ERC-4337, Uniswap, Aave  | 22-30 |
-| **Week 5** | 安全与跨链         | 冷热分离, L2, MEV, 结业项目      | 31-37 |
-
-### 详细课程文件
+### ✅ Week 1: 区块链基础 + Bitcoin 核心 (已完成)
 
 - [Day 1: 区块链核心概念](./Day01_区块链核心概念.md)
 - [Day 2: 密码学基础与钱包原理](./Day02_密码学基础与钱包原理.md)
@@ -222,62 +75,19 @@ flowchart LR
 - [Day 6: Bitcoin 支付系统开发](./Day06_Bitcoin支付系统开发.md)
 - [Day 7: Week 1 复习与 Mini Project](./Day07_Week1_复习与_Mini_Project.md)
 
----
+### ✅ Week 2: 闪电网络 + EVM 基础 (已完成)
 
-## 🛠️ 工具链生态
+- [Day 8: 闪电网络 Layer 2 支付通道](./Day08_闪电网络_Layer2支付通道.md)
+- [Day 9: LND 开发 (Go)](./Day09_LND开发_Go.md)
+- [Day 10: 以太坊基础 Account 模型与 EVM](./Day10_以太坊基础_Account模型与EVM.md)
+- [Day 11: 以太坊交易与 Go 客户端开发](./Day11_以太坊交易与Go客户端开发.md)
+- [Day 12: 合约开发 Foundry 入门](./Day12_合约开发_Foundry入门.md)
+- [Day 13: Solidity 基础语法与 ERC-20](./Day13_Solidity基础语法与ERC20.md)
+- [Day 14: Week 2 整合与 Mini Project](./Day14_Week2_整合与Mini_Project.md)
 
-```mermaid
-flowchart LR
-    subgraph Contract["合约开发"]
-        Foundry2["Foundry"]
-        Forge2["forge test"]
-        Cast2["cast call"]
-        Anvil2["anvil"]
-    end
+### 🔜 Week 3-5: 即将推出
 
-    subgraph GoBackend["Go 后端"]
-        geth["go-ethereum"]
-        btc["btcsuite"]
-        lnd["lnd/lnrpc"]
-        abigen2["abigen"]
-    end
-
-    subgraph Infra["基础设施"]
-        MySQL["MySQL/PostgreSQL"]
-        Redis["Redis"]
-    end
-
-    Foundry2 --> Forge2
-    Foundry2 --> Cast2
-    Foundry2 --> Anvil2
-    Foundry2 --> abigen2
-    
-    abigen2 --> geth
-    geth --> MySQL
-    btc --> Redis
-    lnd --> Redis
-```
-
----
-
-## 📋 核心技术点索引
-
-| 类别         | 技术点                  | Day       | 前置知识 |
-| ------------ | ----------------------- | --------- | -------- |
-| **密码学**   | ECDSA / BIP-39 / BIP-32 | Day 2     | -        |
-| **Bitcoin**  | UTXO / Coin Selection   | Day 3     | 密码学   |
-| **Bitcoin**  | PSBT / 多签             | Day 4     | UTXO     |
-| **Bitcoin**  | CLTV / CSV 时间锁       | Day 5     | Script   |
-| **Bitcoin**  | 支付系统 / Reorg        | Day 6     | RPC      |
-| **闪电网络** | 支付通道 / HTLC         | Day 8-10  | 时间锁   |
-| **Ethereum** | Account / EVM           | Day 11    | -        |
-| **Solidity** | ERC-20 / Fuzzing        | Day 13    | EVM      |
-| **Solidity** | ABI / Proxy             | Day 15    | Solidity |
-| **Go 集成**  | Abigen / Indexer        | Day 16-19 | ABI      |
-| **Merkle**   | Merkle Tree / Proof     | Day 22-23 | 哈希     |
-| **标准**     | ERC-4337                | Day 26-27 | Permit   |
-| **DeFi**     | Uniswap / Aave          | Day 28-29 | ERC-20   |
-| **安全**     | 冷热分离 / MEV          | Day 31-35 | 多签     |
+详见 [课程大纲.md](./课程大纲.md) 了解完整课程内容。
 
 ---
 
@@ -330,10 +140,6 @@ forge init contracts
 - [Bitcoin BIPs](https://github.com/bitcoin/bips)
 - [Ethereum EIPs](https://eips.ethereum.org/)
 - [ERC-4337](https://eips.ethereum.org/EIPS/eip-4337)
-
-### 进阶阅读
-- [Paradigm Engineering Blog](https://www.paradigm.xyz/blog)
-- [Flashbots Docs](https://docs.flashbots.net/)
 
 ---
 

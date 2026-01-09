@@ -23,26 +23,7 @@
 
 #### 1.1 公钥密码学原理
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    非对称加密体系                            │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│   私钥 (Private Key)                                        │
-│   ├── 256 位随机数                                          │
-│   ├── 必须保密，丢失 = 资产丢失                              │
-│   └── 用于签名交易                                          │
-│                                                             │
-│         │ 椭圆曲线乘法 (单向)                                │
-│         ▼                                                   │
-│                                                             │
-│   公钥 (Public Key)                                         │
-│   ├── 由私钥推导，可公开                                     │
-│   ├── 用于验证签名                                          │
-│   └── 生成地址                                              │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+![Asymmetric Encryption](assets/day02/asymmetric_encryption_system.png)
 
 **核心特性**：
 - ✅ 私钥 → 公钥：容易计算
@@ -136,26 +117,7 @@ Hash160(data) = RIPEMD160(SHA256(data))
 
 #### 3.1 Bitcoin 地址生成流程
 
-```
-私钥 (256 bit)
-    │
-    ▼ 椭圆曲线乘法
-公钥 (压缩: 33 bytes / 未压缩: 65 bytes)
-    │
-    ▼ SHA256
-SHA256 哈希 (32 bytes)
-    │
-    ▼ RIPEMD160
-公钥哈希 (20 bytes)
-    │
-    ▼ 添加版本前缀 (0x00 = mainnet, 0x6f = testnet)
-版本 + 公钥哈希 (21 bytes)
-    │
-    ▼ 双重 SHA256 取前 4 字节作为校验和
-    │
-    ▼ Base58Check 编码
-Bitcoin 地址 (如: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa)
-```
+![Bitcoin Address Generation](assets/day02/bitcoin_address_generation.png)
 
 **地址格式对比**：
 
@@ -168,21 +130,7 @@ Bitcoin 地址 (如: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa)
 
 #### 3.2 Ethereum 地址生成流程
 
-```
-私钥 (256 bit)
-    │
-    ▼ 椭圆曲线乘法
-公钥 (64 bytes, 未压缩，去掉 04 前缀)
-    │
-    ▼ Keccak256
-哈希 (32 bytes)
-    │
-    ▼ 取后 20 字节
-地址 (20 bytes)
-    │
-    ▼ 添加 0x 前缀 + EIP-55 校验和 (大小写混合)
-Ethereum 地址 (如: 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B)
-```
+![Ethereum Address Generation](assets/day02/ethereum_address_generation.png)
 
 **EIP-55 校验和**：地址字符的大小写编码校验信息
 
@@ -258,33 +206,11 @@ Seed = PBKDF2(
 
 **解决方案**：从单一种子派生无限数量的密钥对
 
-```
-                    Master Seed (512 bits)
-                           │
-                           ▼ HMAC-SHA512
-                    Master Private Key + Chain Code
-                           │
-            ┌──────────────┼──────────────┐
-            ▼              ▼              ▼
-         m/0'           m/1'           m/2'
-            │              │              │
-         ┌──┴──┐        ┌──┴──┐        ┌──┴──┐
-         ▼     ▼        ▼     ▼        ▼     ▼
-       m/0'/0 m/0'/1  m/1'/0 m/1'/1  m/2'/0 m/2'/1
-```
+![HD Wallet Derivation](assets/day02/hd_wallet_derivation.png)
 
 #### 5.2 BIP-44 派生路径
 
-```
-m / purpose' / coin_type' / account' / change / address_index
-│      │          │           │          │          │
-│      │          │           │          │          └── 地址序号
-│      │          │           │          └── 0=收款, 1=找零
-│      │          │           └── 账户索引
-│      │          └── 币种 (0=BTC, 60=ETH, 501=SOL)
-│      └── 44 表示遵循 BIP-44
-└── 主节点
-```
+![BIP-44 Derivation Path](assets/day02/bip44_derivation_path.png)
 
 **常用派生路径**：
 
