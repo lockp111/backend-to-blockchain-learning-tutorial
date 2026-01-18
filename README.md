@@ -42,8 +42,8 @@ mindmap
       Day11_12[以太坊 + Foundry]
       Day13[Solidity 基础]
       Day14[Week 2 整合]
-    Week3[Week 3: 合约进阶]
-      Day15[ABI 与 Proxy]
+    Week3[Week 3: 合约进阶与 Go 集成]
+      Day15[Solidity 进阶]
       Day16[Abigen 绑定]
       Day17[E2E 测试]
       Day18_19[Custom Indexer]
@@ -85,7 +85,29 @@ mindmap
 - [Day 13: Solidity 基础语法与 ERC-20](./Day13_Solidity基础语法与ERC20.md)
 - [Day 14: Week 2 整合与 Mini Project](./Day14_Week2_整合与Mini_Project.md)
 
-### 🔜 Week 3-5: 即将推出
+### ✅ Week 3: 合约进阶与 Go 集成 (已完成)
+
+- [Day 15: Solidity 进阶 (ABI, Storage, Proxy)](./Day15_Solidity进阶_ABI_Storage_Proxy.md)
+- [Day 16: Abigen 合约绑定与 Go 集成](./Day16_Abigen合约绑定与Go集成.md)
+- [Day 17: Go + Anvil E2E 集成测试](./Day17_Go_Anvil_E2E集成测试.md)
+- [Day 18: 高性能事件监听与 Custom Indexer (Part 1)](./Day18_高性能事件监听_Part1.md)
+- [Day 19: 高性能事件监听与 Custom Indexer (Part 2)](./Day19_高性能事件监听_Part2.md)
+- [Day 20: Week 3 整合与 Mini Project 设计](./Day20_Week3整合与Mini_Project设计.md)
+- [Day 21: Mini Project 完成与部署](./Day21_Mini_Project完成与部署.md)
+
+### � Week 4: 资产与 DeFi (进行中)
+
+- [Day 22: NFT 标准 (ERC-721 与 ERC-1155)](./Day22_NFT标准_ERC721与ERC1155.md) ✅
+  - Merkle Tree 白名单、延迟揭示、EIP-2981 版税
+  - 完整 GalaxyPass NFT 合约 + 测试
+- [Day 23: AMM 与 Uniswap 原理](./Day23_AMM_Uniswap原理.md) ✅
+  - Uniswap V2 常数积公式、无常损失
+  - Uniswap V3 集中流动性完整数学公式
+- [Day 24: AMM 实现简易 DEX](./Day24_AMM_实现简易DEX.md) ✅
+  - 完整 SimpleAMM 合约 + Fuzz 测试
+- Day 25-28: 闪电贷、套利、DEX 聚合器 (即将推出)
+
+### 🔜 Week 5: 安全与跨链 (即将推出)
 
 详见 [课程大纲.md](./课程大纲.md) 了解完整课程内容。
 
